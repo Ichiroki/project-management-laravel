@@ -1,5 +1,6 @@
 <?php
 
+use App\Http\Controllers\ProjectController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -13,6 +14,10 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
+Route::get('/', [ProjectController::class, 'index']);
+
+Route::prefix('project')->group(function() {
+    Route::post('/add', [ProjectController::class, 'store'])->name('project.add');
+
+    Route::get('/detail', [ProjectController::class, 'show'])->name('project.detail');
 });
