@@ -13,12 +13,13 @@ class Project extends Model
 
     protected $fillable = [
         'id',
-        'nama',
-        'tim',
-        'klien',
-        'status',
-        'anggaran',
-        'deskripsi',
+        'project_name',
+        'slug',
+        'project_division',
+        'project_client',
+        'project_status',
+        'project_budget',
+        'project_description',
     ];
 
     public $timestamps = false;

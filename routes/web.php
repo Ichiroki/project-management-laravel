@@ -1,6 +1,6 @@
 <?php
 
-use App\Http\Controllers\ProjectController;
+use App\Http\Controllers\{UserController, ProjectController};
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -14,10 +14,35 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', [ProjectController::class, 'index']);
+Route::get('/', function() {
+    return view('welcome');
+});
 
-Route::prefix('project')->group(function() {
-    Route::post('/add', [ProjectController::class, 'store'])->name('project.add');
+Route::prefix('/')->group(function() {
+    Route::prefix('project')->group(function() {
+        Route::get('/', [ProjectController::class, 'index'])->name('project');
+        Route::get('/create', [ProjectController::class, 'create'])->name('project.create');
+        Route::post('/create', [ProjectController::class, 'store'])->name('project.add');
+        Route::get('/edit/{id}', [ProjectController::class, 'edit'])->name('project.edit');
+        Route::put('/update/{id}', [ProjectController::class, 'update'])->name('project.update');
+        Route::delete('/delete/{id}', [ProjectController::class, 'destroy'])->name('project.delete');
 
-    Route::get('/detail', [ProjectController::class, 'show'])->name('project.detail');
+        Route::get('/{slug}', [ProjectController::class, 'show'])->name('project.detail');
+    });
+
+    Route::prefix('user')->group(function() {
+        Route::get('/', [UserController::class, 'index'])->name('user');
+
+        Route::get('/create', [UserController::class, 'create'])->name('user.create');
+        Route::post('/create', [UserController::class, 'store'])->name('user.add');
+
+        Route::get('/edit/{id}/{name?}', [UserController::class, 'edit'])->name('user.edit');
+        Route::put('/edit/{id}/{name?}', [UserController::class, 'update'])->name('user.update');
+
+        Route::delete('/delete/{id}', [UserController::class, 'destroy'])->name('user.delete');
+
+        Route::get('/{id}/{name?}', [UserController::class, 'show'])->name('user.detail');
+    });
+
+    return view('welcome');
 });

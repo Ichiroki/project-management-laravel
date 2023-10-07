@@ -4,14 +4,14 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateProjectRequest extends FormRequest
+class StoreDivisionRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
      */
     public function authorize(): bool
     {
-        return true;
+        return false;
     }
 
     /**
@@ -22,11 +22,7 @@ class UpdateProjectRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nama' => 'required|max:255|unique:projects,nama',
-            'tim' => 'required',
-            'status' => 'required',
-            'anggaran' => 'required',
-            'deskripsi' => 'required',
+            //
         ];
     }
 }

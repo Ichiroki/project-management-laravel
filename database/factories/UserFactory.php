@@ -2,6 +2,8 @@
 
 namespace Database\Factories;
 
+use Carbon\Carbon;
+use Faker\Provider\id_ID\Address;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -18,11 +20,17 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'name' => fake()->name(),
-            'email' => fake()->unique()->safeEmail(),
+            'user_firstName' => fake('id_ID')->firstName(),
+            'user_lastName' => fake('id_ID')->lastName(),
+            'user_email' => fake('id_ID')->unique()->safeEmail(),
+            'user_born' => fake('id_ID')->date('d-m-Y'),
+            'user_address' => fake('id_ID')->address(),
+            'user_city' => fake('id_ID')->city(),
+            'user_state' => Address::state(),
             'email_verified_at' => now(),
-            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'user_password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
+            'created_at' => Carbon::now()
         ];
     }
 
