@@ -20,15 +20,11 @@ class UserFactory extends Factory
     public function definition(): array
     {
         return [
-            'user_firstName' => fake('id_ID')->firstName(),
-            'user_lastName' => fake('id_ID')->lastName(),
-            'user_email' => fake('id_ID')->unique()->safeEmail(),
-            'user_born' => fake('id_ID')->date('d-m-Y'),
-            'user_address' => fake('id_ID')->address(),
-            'user_city' => fake('id_ID')->city(),
-            'user_state' => Address::state(),
+            'avatar' => 'person.png',
+            'name' => fake('id_ID')->name(),
+            'email' => fake('id_ID')->unique()->safeEmail(),
             'email_verified_at' => now(),
-            'user_password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
+            'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
             'created_at' => Carbon::now()
         ];

@@ -24,12 +24,11 @@ class User extends Authenticatable
     protected $policy = UserPolicy::class;
 
     protected $fillable = [
-        'user_picture',
-        'user_firstName',
-        'user_lastName',
-        'user_email',
-        'user_password',
-        'user_role',
+        'avatar',
+        'name',
+        'email',
+        'password',
+        'role',
     ];
 
     /**
@@ -48,18 +47,7 @@ class User extends Authenticatable
      * @var array<string, string>
      */
     protected $casts = [
-        'user_born' => 'date',
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
-
-    /**
-     * Get the user that owns the User
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\BelongsTo
-     */
-    public function division()
-    {
-        return $this->belongsTo(Division::class);
-    }
 }

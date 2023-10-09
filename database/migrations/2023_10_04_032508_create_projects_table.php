@@ -13,14 +13,16 @@ return new class extends Migration
     {
         Schema::create('projects', function (Blueprint $table) {
             $table->id();
-            $table->string('project_name');
-            $table->string('slug');
-            $table->string('project_division');
-            $table->string('project_client');
-            $table->string('project_status');
-            $table->string('project_budget');
-            $table->string('project_description');
+            $table->string('name', 100);
+            $table->string('slug')->unique();
+            $table->string('client', 100);
+            $table->enum('status', ["Belum Dikerjakan", "Sedang Dikerjakan", "Menunggu Diterima", "Sudah Selesai"]);
+            $table->integer('budget');
+            $table->foreignId('project_manager_id')->constrained('users');
+            $table->text('description');
             $table->timestamps();
+
+            $table->index(['name', 'project_manager_id']);
         });
     }
 

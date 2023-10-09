@@ -15,15 +15,11 @@ class UserSeeder extends Seeder
     public function run(): void
     {
         DB::table('users')->insert([
-            'user_picture' => 'mirai-7.jpg',
-            'user_firstName' => 'Mirai',
-            'user_lastName' => 'Kuriyama',
-            'user_email' => 'mirai@gmail.com',
-            'user_born' => Carbon::create('1999', '3', '30'),
-            'user_address' => fake('id_ID')->address(),
-            'user_city' => fake('id_ID')->city(),
-            'user_state' => fake('id_ID')->streetAddress(),
-            'user_password' => Hash::make('password'),
+            'avatar' => 'mirai-7.jpg',
+            'name' => 'Mirai Kuriyama',
+            'email' => 'mirai@gmail.com',
+            'role' => 'admin',
+            'password' => Hash::make('password'),
             'created_at' => Carbon::now()
         ]);
     }

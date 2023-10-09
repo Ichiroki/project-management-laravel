@@ -4,7 +4,9 @@
     "scripts": {
         "dev": "vite",
         "build": "vite build",
-        "migrate:feed": "php artisan migrate:fresh --seed"
+        "migrate:feed": "php artisan migrate:fresh --seed",
+        "migrate:user": "php artisan migrate --path=/database/migrations/2014_10_12_000000_create_users_table.php",
+        "migrate:project": "php artisan migrate --path=/database/migrations/2023_10_04_032508_create_projects_table.php"
     },
     "devDependencies": {
         "@shufo/prettier-plugin-blade": "^1.11.1",

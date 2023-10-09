@@ -42,13 +42,12 @@ class ProjectController extends Controller
 
         $slug = Str::slug($request->nama);
         DB::table('projects')->insert([
-            'project_name' => $request->project_name,
+            'name' => $request->name,
             'slug' => $slug,
-            'project_division' => $request->project_division,
-            'project_client' => $request->project_client,
-            'project_status' => $request->project_status,
-            'project_budget' => $request->project_budget,
-            'project_description' => $request->project_description,
+            'client' => $request->client,
+            'status' => $request->status,
+            'budget' => $request->budget,
+            'description' => $request->description,
         ]);
 
         Session::flash('message', 'Proyek berhasil ditambahkan');

@@ -15,13 +15,13 @@ class ProjectSeeder extends Seeder
     public function run(): void
     {
         DB::table('projects')->insert([
-            'project_name' => 'Pengembangan Website',
+            'name' => 'Pengembangan Website',
             'slug' => 'pengembangan-website',
-            'project_division' => 'Developer',
-            'project_client' => 'Manajer Proyek',
-            'project_status' => 'Sedang Dikerjakan',
-            'project_budget' => '2.000.000',
-            'project_description' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas facere ipsum in dolorem, provident tenetur ab necessitatibus labore dicta, impedit pariatur nam, magni nostrum. Blanditiis magnam sed harum quae ut!'
+            'client' => 'Portfolio',
+            'status' => 'Sedang Dikerjakan',
+            'budget' => number_format(2000000, 0, ',', '.'),
+            'project_manager_id' => 1,
+            'description' => 'Lorem ipsum dolor, sit amet consectetur adipisicing elit. Voluptas facere ipsum in dolorem, provident tenetur ab necessitatibus labore dicta, impedit pariatur nam, magni nostrum. Blanditiis magnam sed harum quae ut!'
         ]);
     }
 }

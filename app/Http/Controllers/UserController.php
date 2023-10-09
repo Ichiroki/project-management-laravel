@@ -2,11 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\UserRequest;
-use App\Models\User;
 use Carbon\Carbon;
-use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Routing\Controller;
+use App\Http\Requests\{StoreUserRequest, UpdateUserRequest};
 use Illuminate\Support\Facades\{DB, Hash, Session, Storage};
 
 class UserController extends Controller
@@ -32,40 +31,13 @@ class UserController extends Controller
     /**
      * Store a newly created resource in storage.
      */
-    public function store(UserRequest $request)
-    {
-        $password = Hash::make($request->user_password);
-
-        $picture = $request->user_picture;
-        $picName = $picture->getClientOriginalName();
-
-        DB::table('users')->insert([
-            'user_picture' => $picName,
-            'user_firstName' => $request->user_firstName,
-            'user_lastName' => $request->user_lastName,
-            'user_email' => $request->user_email,
-            'user_born' => $request->user_born,
-            'user_address' => $request->user_address,
-            'user_city' => $request->user_city,
-            'user_state' => $request->user_state,
-            'user_password' => $password,
-            'created_at' => Carbon::now()
-        ]);
-
-        // Ini geraknya dari storage/app <- di folder sini
-        $request->file('user_picture')->storeAs('./public/img', $picName);
-
-        Session::flash('success', 'New user sucessfully added');
-
-        return redirect()->to('/user');
-    }
 
     /**
      * Display the specified resource.
      */
     public function show(User $user, $id, $nama)
     {
-        $user = DB::table('users')->where('id', $id)->orWhere('user_firstName', $nama)->first();
+        $user = DB::table('users')->where('id', $id)->orWhere('firstName', $nama)->first();
 
         return view('user.detail', [
             'user' => $user
@@ -77,7 +49,7 @@ class UserController extends Controller
      */
     public function edit(User $user, $id, $nama)
     {
-        $user = DB::table('users')->where('id', $id)->orWhere('user_firstName', $nama)->first();
+        $user = DB::table('users')->where('id', $id)->orWhere('firstName', $nama)->first();
 
         return view('user.edit', [
             'user' => $user
@@ -87,9 +59,27 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(UpdateUserRequest $request, $id)
     {
-        //
+        $password = Hash::make($request->password);
+
+        $picture = $request->avatar;
+        $picName = $picture->getClientOriginalName();
+
+        if($request->file('avatar')) {
+            if($request->oldPic) {
+                Storage::delete('public/img'. $picName);
+            }
+            $request->file('avatar')->storeAs('./public/img', $picName);
+        }
+
+        DB::table('users')->where('id', $id)->update([
+            'avatar' => $picName,
+            'name' => $request->name,
+            'email' => $request->email,
+            'password' => $password,
+            'created_at' => Carbon::now()
+        ]);
     }
 
     /**
@@ -99,8 +89,8 @@ class UserController extends Controller
     {
         $user = DB::table('users')->where('id', $id)->first();
 
-        if(Storage::exists('public/img/' . $user->user_picture)) {
-            Storage::delete('public/img/' . $user->user_picture);
+        if(Storage::exists('public/img/' . $user->avatar)) {
+            Storage::delete('public/img/' . $user->avatar);
         }
 
         DB::table('users')->where('id', $id)->delete();

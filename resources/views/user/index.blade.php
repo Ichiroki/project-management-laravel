@@ -34,25 +34,10 @@
                             Profile Picture
                         </th> --}}
                         <th scope="col" class="px-6 py-3">
-                            First Name
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Last Name
+                            Name
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Email
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Born
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            Address
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            City
-                        </th>
-                        <th scope="col" class="px-6 py-3">
-                            State
                         </th>
                         <th scope="col" class="px-6 py-3">
                             Registered Since
@@ -66,38 +51,23 @@
                     @foreach ($user as $u)
                         <tr class="bg-white border-b dark:bg-gray-800 dark:border-gray-700 hover:bg-gray-50 dark:hover:bg-gray-600">
                             {{-- <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                @if ($u->user_picture == '')
+                                @if ($u->avatar == '')
                                     <img src="{{ asset('storage/img/person.png') }}" alt="" class="w-[75px]">
                                 @endif
-                                <img src="{{ asset('storage/img/' . $u->user_picture) }}" alt="" class="w-[75px]">
+                                <img src="{{ asset('storage/img/' . $u->avatar) }}" alt="" class="w-[75px]">
                             </th> --}}
                             <th scope="row" class="px-6 py-4 font-medium text-gray-900 whitespace-nowrap dark:text-white">
-                                {{ $u->user_firstName }}
+                                {{ $u->name }}
                             </th>
                             <td class="px-6 py-4">
-                                {{ $u->user_lastName }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $u->user_email }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $u->user_born }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $u->user_address }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $u->user_city }}
-                            </td>
-                            <td class="px-6 py-4">
-                                {{ $u->user_state }}
+                                {{ $u->email }}
                             </td>
                             <td class="px-6 py-4">
                                 {{ $u->created_at->diffForHumans() }}
                             </td>
                             <td class="px-6 py-4 text-right">
-                                <a href="{{ route('user.detail', ['id' => $u->id, 'name' => $u->user_firstName]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Detail</a>
-                                <a href="{{ route('user.edit', ['id' => $u->id, 'name' => $u->user_firstName]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
+                                <a href="{{ route('user.detail', ['id' => $u->id, 'name' => $u->firstName]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Detail</a>
+                                <a href="{{ route('user.edit', ['id' => $u->id, 'name' => $u->firstName]) }}" class="font-medium text-blue-600 dark:text-blue-500 hover:underline">Edit</a>
                                 <form action="{{ route('user.delete', ['id' => $u->id]) }}" method="post">
                                     @csrf
                                     @method('delete')
